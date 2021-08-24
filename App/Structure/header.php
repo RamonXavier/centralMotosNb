@@ -18,7 +18,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="../../View/pedido/listar.php">Pedidos</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/relatorioProjeto.php">Relatório de Pedidos</a>
+                        <a class="dropdown-item" href="../../View/relatorios/relatorioPedidosAbertos.php">Relatório de Pedidos</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
