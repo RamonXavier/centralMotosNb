@@ -4,57 +4,61 @@ require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
 $_POST['formPost'] = 'buscar';
-$listaPedidos = require_once "../../Controller/PedidoController.php";
+$listaPedidos = require_once "../../Controller/RelatoriosController.php";
+
+$_POST['formPost'] = 'buscarStatus';
+$listaStatus = require "../../Controller/RelatoriosController.php";
 
 // echo "<pre>";
-// print_r($listaPedidos);
+// print_r($listaStatus);
 // echo "</pre>";
 ?>
 
 <div class="container">
 
-<div id="accordion"  style="margin-top: 3rem;">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="m-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <i class="fas fa-filter"></i>Clique para exibir/fechar
-        </button>
-      </h5>
-    </div>
+    <div id="accordion" style="margin-top: 3rem;">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="m-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                        aria-controls="collapseOne">
+                        <i class="fas fa-filter"></i>Clique para exibir/fechar
+                    </button>
+                </h5>
+            </div>
 
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-    <div class="card-body">
-            <h5 class="card-title">Filtro</h5>
-                <form action="../Controller/EmpregadoController.php" method="GET">
-                    <div class="row col-12">
-                        <div class="form-group col-6">
-                            <label for="selectProj">Status dos pedidos</label>
-                            <select class="form-control" id="selectProj" name="selectProj">
-                                <option value="">SELECIONE...</option>
-                                <?php foreach ($listarProjetos as $key => $value) { ?>
-                                <option value="<?= $value['codigo'] ?>"><?= $value['descricao'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-3">
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <h5 class="card-title">Filtro</h5>
+                    <form action="../../Controller/RelatoriosController.php" method="GET">
+                        <div class="row col-12">
+                            <div class="form-group col-6">
+                                <label for="statusPedido">Status dos pedidos</label>
+                                <select class="form-control" id="statusPedido" name="statusPedido">
+                                    <option value="">SELECIONE...</option>
+                                    <?php foreach ($listaStatus as $key => $value) { ?>
+                                    <option value="<?= $value['id'] ?>"><?= $value['nome'] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group col-3">
                                 <label for="dataInicial">Período Inicial</label>
                                 <input class="form-control" type="date" name="dataInicial" id="dataInicial">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="dataFinal">Período Final</label>
+                                <input class="form-control" type="date" name="dataFinal" id="dataFinal">
+                            </div>
+                            <div class="col-12">
+                                <input type="hidden" name="formGet" value="formFilter_relatorioPedido">
+                                <input type="submit" class="btn btn-primary" value="Buscar">
+                            </div>
                         </div>
-                        <div class="form-group col-3">
-                            <label for="dataFinal">Período Final</label>
-                            <input class="form-control" type="date" name="dataFinal" id="dataFinal">
-                        </div>
-                        <div class="col-12">
-                            <input type="hidden" name="formGet" value="buscaRelEmp_Proj_null">
-                            <input type="submit" class="btn btn-primary" value="Buscar">
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-</div>
     <div class="div_center">
         <table id="thisTable">
             <thead>
