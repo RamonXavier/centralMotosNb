@@ -84,19 +84,17 @@ class RelatorioDAO
         }
 
         if($dtInicio != null && $dtFim == null) {
-            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao > ".$dtInicio;
+            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao > "."'".$dtInicio."'";
 
         }           
 
         if($dtFim != null && $dtInicio == null) {
-            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao < ".$dtInicio;
+            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao < "."'".$dtFim."'";
         }
 
         if($dtFim != null && $dtInicio != null){
-            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao > ".$dtInicio." AND p.dt_conclusao < ".$dtFim;
+            $sqlBuscar = $sqlBuscar." AND p.dt_conclusao BETWEEN "."'".$dtInicio."'"." AND "."'".$dtFim."'";
         } 
-
-       echo $sqlBuscar;
        
         $smtp = Conexao::getConexaoBD()->prepare($sqlBuscar);
         $smtp->execute();

@@ -41,10 +41,7 @@ if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'formFilter_relatorio
     $dtFim = isset($_GET['dataFinal']) ? $_GET['dataFinal'] : null;
 
     $lista = $relatorioDAO->BuscarFiltrado($status, $dtInicio, $dtFim);
-    // return $lista;
-    echo "<pre>";
-    print_r($_GET);
-    echo "</pre>";
+     return $lista;
 
    // header('Location: ../View/relatorios/relatorioPedidosAbertos.php');
 }
