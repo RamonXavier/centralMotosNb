@@ -1,4 +1,6 @@
 <?php
+$_GET['verificar'] = true;
+require "../../Controller/LoginController.php";
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 ?>
