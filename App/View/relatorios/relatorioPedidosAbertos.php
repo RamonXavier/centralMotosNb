@@ -85,10 +85,10 @@ if (!isset($_GET['formGet'])) {
             </thead>
             <tbody>
                 <?php
-                $valorTotal = 0;
+                $valorTotal = 00.00;
                 if (is_array($listaPedidos)) {
                     foreach ($listaPedidos as $key => $value) {
-                        $valorTotal += $value['Valor'];
+                        $valorTotal += (float)filter_var($value['Valor'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                         $corDestaque = "green";
                         if ($value['dt_prazo'] > $value['dt_conclusao'] || !$value['dt_conclusao']) {
                             $corDestaque = "red";
@@ -122,7 +122,12 @@ if (!isset($_GET['formGet'])) {
         </strong>
         até
         <strong><?= $_GET['dataFinal'] == '0000-00-00 00:00:00' ? ' ' : date('d-m-Y', strtotime($_GET['dataFinal'])) ?></strong>
-        Gerou um total de <strong>R$<?= $valorTotal ?></strong>
+        Gerou um total de
+        <strong>R$
+            <span class="custoTotal">
+                <?= (float)filter_var($valorTotal, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION) ?>
+            </span>
+        </strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

@@ -119,8 +119,8 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
                                     $selecionado = "selected";
                                 }
                             ?>
-                            <option value="<?= $value['id'] ?>" <?= $selecionado ?>>
-                                <?= $value['nome'] ?> - R$<?= $value['valor_entrega'] ?>
+                            <option value="<?= $value['id'] ?>|<?= $value['valor_entrega'] ?>">
+                                <?= $value['nome'] ?> - Valor de entrega: R$<?= $value['valor_entrega'] ?>
                             </option>
                             <?php }
                             ?>

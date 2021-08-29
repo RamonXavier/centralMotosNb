@@ -14,6 +14,7 @@ class Pedido
     private $id_motoboy;
     private $id_bairro_origem;
     private $id_bairro_destino;
+    private $valor_entrega;
 
     public function getId()
     {
@@ -113,5 +114,15 @@ class Pedido
     public function setId_bairro_destino($id_bairro_destino)
     {
         $this->id_bairro_destino = $id_bairro_destino;
+    }
+
+    public function get_valor_entrega()
+    {
+        return $this->valor_entrega;
+    }
+
+    public function setId_valor_entrega($valor_entrega)
+    {
+        $this->valor_entrega = $valor_entrega;
     }
 }

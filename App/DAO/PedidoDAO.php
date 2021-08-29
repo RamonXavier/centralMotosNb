@@ -20,25 +20,22 @@ class PedidoDAO
         id_usuario, 
         id_motoboy,
         id_bairro_origem, 
-        id_bairro_destino) 
+        id_bairro_destino,
+        valor_entrega) 
         VALUES 
-        (?,now(),?,?,?,2,?,?,?)";
+        (?,now(),?,?,?,2,?,?,?,?)";
 
 
         $smtp = Conexao::getConexaoBD()->prepare($sqlCriar);
         $smtp->bindValue(1, $pedido->getDescricao());
-        $smtp->bindValue(2, $pedido->getDt_criacao());
-        $smtp->bindValue(3, $pedido->getDt_prazo());
-        $smtp->bindValue(4, $pedido->getDt_conclusao());
-        $smtp->bindValue(5, $pedido->getId_status_pedido());
-        $smtp->bindValue(6, $pedido->getId_motoboy());
-        $smtp->bindValue(7, $pedido->getId_bairro_origem());
-        $smtp->bindValue(8, $pedido->getId_bairro_destino());
+        $smtp->bindValue(2, $pedido->getDt_prazo());
+        $smtp->bindValue(3, $pedido->getDt_conclusao());
+        $smtp->bindValue(4, $pedido->getId_status_pedido());
+        $smtp->bindValue(5, $pedido->getId_motoboy());
+        $smtp->bindValue(6, $pedido->getId_bairro_origem());
+        $smtp->bindValue(7, $pedido->getId_bairro_destino());
+        $smtp->bindValue(8, $pedido->get_valor_entrega());
         $smtp->execute();
-
-        echo 'rr<pre>';
-        print_r($pedido);
-        echo '</pre>';
     }
 
     public function Buscar()
@@ -55,7 +52,7 @@ class PedidoDAO
             uM.nome as Motoboy,
             bO.nome as Bairro_origem, 
             bD.nome as Bairro_destino,
-            bD.valor_entrega as Valor, p.*
+            p.valor_entrega as Valor, p.*
             FROM pedido p 
             JOIN usuario uU on uU.id = p.id_usuario 
             JOIN usuario uM on uM.id = p.id_motoboy
@@ -138,7 +135,8 @@ class PedidoDAO
         id_status_pedido = ?,
         id_motoboy = ?,
         id_bairro_origem = ?,
-        id_bairro_destino = ?
+        id_bairro_destino = ?,
+        valor_entrega = ?
         WHERE id = ?";
         $smtp = Conexao::getConexaoBD()->prepare($sqlEditar);
         $smtp->bindValue(1, $pedido->getDescricao());
@@ -148,7 +146,8 @@ class PedidoDAO
         $smtp->bindValue(5, $pedido->getId_motoboy());
         $smtp->bindValue(6, $pedido->getId_bairro_origem());
         $smtp->bindValue(7, $pedido->getId_bairro_destino());
-        $smtp->bindValue(8, $pedido->getId());
+        $smtp->bindValue(8, $pedido->get_valor_entrega());
+        $smtp->bindValue(9, $pedido->getId());
         $smtp->execute();
     }
 }

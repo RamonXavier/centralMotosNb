@@ -23,7 +23,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-6">
                         <label for="dt_prazo">Data de Prazo </label>
-                        <input type="date" name="dt_prazo" id="dt_prazo" value="" class="form-control"></input>
+                        <input type="date" name="dt_prazo" id="dt_prazo" value="" class="form-control" required></input>
                         <small id="DepHelp" class="form-text text-muted">O valor que será cobrado para entregar neste
                             bairro.</small>
                     </div>
@@ -66,7 +66,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-6">
                         <label for="bairro_origem">Bairro de origem</label>
-                        <select name="bairro_origem" id="bairro_origem" class="form-control">
+                        <select name="bairro_origem" id="bairro_origem" class="form-control" required>
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaBairro as $key => $value) {
@@ -81,13 +81,13 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-12">
                         <label for="bairro_destino">Bairro de destino</label>
-                        <select name="bairro_destino" id="bairro_destino" class="form-control">
+                        <select name="bairro_destino" id="bairro_destino" class="form-control" required>
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaBairro as $key => $value) {
                             ?>
-                            <option value="<?= $value['id'] ?>">
-                                <?= $value['nome'] ?> - R$<?= $value['valor_entrega'] ?>
+                            <option value="<?= $value['id'] ?>|<?= $value['valor_entrega'] ?>">
+                                <?= $value['nome'] ?> - Valor de entrega: R$<?= $value['valor_entrega'] ?>
                             </option>
                             <?php }
                             ?>
@@ -98,8 +98,8 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
                     <div class="form-group col-12">
                         <label for="descricao">Descrição Pedido</label>
                         <textarea rows="4" class="form-control" id="descricao" name="descricao"
-                            aria-describedby="DepHelp"
-                            placeholder="Ex: Objeto frágil, entregar em mãos a Pedro"></textarea>
+                            aria-describedby="DepHelp" placeholder="Ex: Objeto frágil, entregar em mãos a Pedro"
+                            required></textarea>
                         <small id="DepHelp" class="form-text text-muted">Informe aqui o endereço, descrição e
                             orientações do pedido.</small>
                     </div>
@@ -120,3 +120,9 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 <?php
 require "../../Structure/importsPagesJs.php";
 require "../../Structure/footer.php";
+?>
+<script>
+$('.custo').mask('000.000.000.000.000,00', {
+    reverse: true
+});
+</script>
