@@ -1,0 +1,35 @@
+.card-img-top {
+    height: 155px;
+    width: 285px;
+    background-size: cover;
+}
+
+.card_header_person1 {
+    background-image: url("../../img/1.jpg");
+}
+
+.card_header_person2 {
+    background-image: url("../../img/2.jpg");
+}
+
+.card_header_person3 {
+    background-image: url("../../img/3.jpg");
+}
+
+.card_header_person4 {
+    background-image: url("../../img/4.png");
+}
+
+.card_header_person1,
+.card_header_person2,
+.card_header_person3,
+.card_header_person4 {
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 100%;
+}
+
+.card_item:hover {
+    background-color: black;
+}
