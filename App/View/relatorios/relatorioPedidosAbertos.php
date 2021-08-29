@@ -3,15 +3,17 @@
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
-$_POST['formPost'] = 'buscar';
-$listaPedidos = require_once "../../Controller/RelatoriosController.php";
-
 $_POST['formPost'] = 'buscarStatus';
 $listaStatus = require "../../Controller/RelatoriosController.php";
+$listaPedidos = [];
 
-// echo "<pre>";
-// print_r($listaStatus);
-// echo "</pre>";
+if (!isset($_GET['formGet'])) {
+    $_POST['formPost'] = 'buscar';
+    $listaPedidos = require "../../Controller/RelatoriosController.php";
+} else {
+    $_POST['formPost'] = 'formFilter_relatorioPedido';
+    $listaPedidos = require "../../Controller/RelatoriosController.php";
+}
 ?>
 
 <div class="container">
@@ -26,15 +28,14 @@ $listaStatus = require "../../Controller/RelatoriosController.php";
                     </button>
                 </h5>
             </div>
-
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                 <div class="card-body">
                     <h5 class="card-title">Filtro</h5>
-                    <form action="../../Controller/RelatoriosController.php" method="GET">
+                    <form action="#" method="GET">
                         <div class="row col-12">
                             <div class="form-group col-6">
                                 <label for="statusPedido">Status dos pedidos</label>
-                                <select class="form-control" id="statusPedido" name="statusPedido">
+                                <select class="form-control" id="statusPedido" name="statusPedido" required>
                                     <option value="">SELECIONE...</option>
                                     <?php foreach ($listaStatus as $key => $value) { ?>
                                     <option value="<?= $value['id'] ?>"><?= $value['nome'] ?></option>
@@ -43,11 +44,13 @@ $listaStatus = require "../../Controller/RelatoriosController.php";
                             </div>
                             <div class="form-group col-3">
                                 <label for="dataInicial">Período Inicial</label>
-                                <input class="form-control" type="date" name="dataInicial" id="dataInicial">
+                                <input class="form-control" type="date" name="dataInicial" id="dataInicial" required>
+                                <small>Inicio da data de conclusão dos pedidos</small>
                             </div>
                             <div class="form-group col-3">
                                 <label for="dataFinal">Período Final</label>
-                                <input class="form-control" type="date" name="dataFinal" id="dataFinal">
+                                <input class="form-control" type="date" name="dataFinal" id="dataFinal" required>
+                                <small>Fim da data de conclusão dos pedidos</small>
                             </div>
                             <div class="col-12">
                                 <input type="hidden" name="formGet" value="formFilter_relatorioPedido">
@@ -60,6 +63,11 @@ $listaStatus = require "../../Controller/RelatoriosController.php";
         </div>
     </div>
     <div class="div_center">
+        <div class="mb-1 text-right">
+            <button id="exporttable" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="">
+                <i class="fas fa-file-excel"></i> Baixar Excel
+            </button>
+        </div>
         <table id="thisTable">
             <thead>
                 <tr>
@@ -73,16 +81,18 @@ $listaStatus = require "../../Controller/RelatoriosController.php";
                     <th style="width: 160px;">Bairro origem</th>
                     <th style="width: 160px;">Bairro destino</th>
                     <th style="width: 130px;">Valor</th>
-                    <th> </th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                foreach ($listaPedidos as $key => $value) {
-                    $corDestaque = "green";
-                    if ($value['dt_prazo'] > $value['dt_conclusao'] || !$value['dt_conclusao']) {
-                        $corDestaque = "red";
-                    }
+                $valorTotal = 0;
+                if (is_array($listaPedidos)) {
+                    foreach ($listaPedidos as $key => $value) {
+                        $valorTotal += $value['Valor'];
+                        $corDestaque = "green";
+                        if ($value['dt_prazo'] > $value['dt_conclusao'] || !$value['dt_conclusao']) {
+                            $corDestaque = "red";
+                        }
                 ?>
                 <tr style="color: <?= $corDestaque ?>">
                     <td><?= $value['id'] ?></td>
@@ -98,16 +108,52 @@ $listaStatus = require "../../Controller/RelatoriosController.php";
                     <td><?= $value['Bairro_origem'] ?></td>
                     <td><?= $value['Bairro_destino'] ?></td>
                     <td><?= $value['Valor'] ?></td>
-                    <td><a href="../pedido/editar.php?formGet=buscarPorId&id=<?= $value['id'] ?>"
-                            class="btn btn-primary">Editar</a></td>
                 </tr>
-                <?php  } ?>
+                <?php  }
+                } ?>
             </tbody>
         </table>
     </div>
+    <?php
+    if (isset($_GET['formGet'])) { ?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        O perído de
+        <strong><?= $_GET['dataInicial'] == '0000-00-00 00:00:00' ? ' ' : date('d-m-Y', strtotime($_GET['dataInicial'])) ?>
+        </strong>
+        até
+        <strong><?= $_GET['dataFinal'] == '0000-00-00 00:00:00' ? ' ' : date('d-m-Y', strtotime($_GET['dataFinal'])) ?></strong>
+        Gerou um total de <strong>R$<?= $valorTotal ?></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php } ?>
 </div>
 
 <?php
 require "../../Structure/importsPagesJs.php";
 require "../../Structure/footer.php";
 ?>
+<script>
+$(function() {
+    $("#exporttable").click(function(e) {
+        var table = $("#thisTable");
+        if (table && table.length) {
+            $(table).table2excel({
+                exclude: ".noExl",
+                name: "Excel Document Name",
+                filename: "Lista de pagamento" + new Date().toLocaleDateString("pt-Br").replace(
+                        /[\-\:\.]/g,
+                        "") +
+                    ".xls",
+                fileext: ".xls",
+                exclude_img: true,
+                exclude_links: true,
+                exclude_inputs: true,
+                preserveColors: false
+            });
+        }
+    });
+
+});
+</script>

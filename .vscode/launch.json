@@ -5,6 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch localhost",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost/centralMotosNB/centralMotosNb/",
+            "webRoot": "${workspaceFolder}/wwwroot"
+        },
+        {
+            "name": "Launch index.html",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceFolder}/index.html"
+        },
+        {
             "name": "Listen for Xdebug",
             "type": "php",
             "request": "launch",
@@ -43,6 +56,7 @@
                 "uriFormat": "http://localhost:%s",
                 "action": "openExternally"
             }
-        }
+        },
+        
     ]
 }
