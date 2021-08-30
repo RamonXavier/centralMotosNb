@@ -43,13 +43,10 @@ echo '</pre>';
 
                         <div class="dropdown-divider"></div>
 
-                        <?php
-                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4 || $_SESSION['Usuariologin']['idTipoUsuario'] == 3) { ?>
                         <a class="dropdown-item" href="../../View/relatorios/relatorioPedidosAbertos.php">
                             <i class="fas fa-clipboard"></i>
                             Relatório de
                             Pedidos</a>
-                        <?php } ?>
                     </div>
                 </li>
                 <?php

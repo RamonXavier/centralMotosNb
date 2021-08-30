@@ -7,18 +7,23 @@ $_POST['formPost'] = 'buscar';
 $listagem = require_once "../../Controller/PedidoController.php";
 ?>
 <div class="container" style="max-width: 1539px;">
+
+    <?php
+    if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 3 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
     <div class="row" style="margin-top: 35px;">
         <div class="form-group col-md-3">
             <a href="criar.php" class="btn background_add"><i class="fas fa-plus"></i>Adicionar</a>
         </div>
     </div>
+    <?php } ?>
+
     <div class="div_center">
         <table id="thisTable">
             <thead>
                 <tr>
                     <th>Número Pedido</th>
                     <th style="width: 130px;">Data Criação</th>
-                    <th style="width: 130px;">Data Prazo</th>
+                    <th style="width: 160px;">Data Prazo</th>
                     <th style="width: 130px;">Data Conclusão</th>
                     <th style="width: 130px;">Status</th>
                     <th style="width: 130px;">Abertura Pedido</th>
