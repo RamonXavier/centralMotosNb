@@ -52,7 +52,6 @@ if (isset($_POST['perfis']) == true && $_POST['perfis'] == true) {
     }
     $permitido = false;
     foreach ($_POST['permissao'][0] as $key => $value) {
-        echo 'aaaa';
         if ($value == $_SESSION['Usuariologin']['idTipoUsuario'])
             $permitido = true;
     }

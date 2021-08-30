@@ -66,7 +66,7 @@ class UsuarioDao
 
     public function Excluir(Usuario $usuario)
     {
-        $sqlExcluir = "DELETE FROM usuario WHERE id = ?";
+        $sqlExcluir = "DELETE FROM usuario WHERE id = ? AND idTipoUsuario NOT IN (2)";
         $smtp = Conexao::getConexaoBD()->prepare($sqlExcluir);
         $smtp->bindValue(1, $usuario->getId());
         $smtp->execute();

@@ -1,9 +1,6 @@
 <?php
 $_GET['verificar'] = true;
 require "../../Controller/LoginController.php";
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
 ?>
 
 <body>
@@ -69,7 +66,7 @@ echo '</pre>';
 
                         <div class="dropdown-divider"></div>
 
-                        <a class="dropdown-item" href="../../View/pedido/editar.php">
+                        <a class="dropdown-item" href="../../View/pedido/criar.php">
                             <i class="fas fa-receipt"></i>
                             Pedidos</a>
                     </div>
@@ -77,7 +74,7 @@ echo '</pre>';
                 <?php } ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                        aria-haspopup="true" aria-expanded="false">Configurações</a>
+                        aria-haspopup="true" aria-expanded="false"><?= $_SESSION['Usuariologin']['nome'] ?></a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="../../Controller/LoginController.php?logout=true"><i
                                 class="fas fa-sign-out-alt"></i> Sair</a>

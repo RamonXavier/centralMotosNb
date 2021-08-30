@@ -49,7 +49,7 @@ require "../../Structure/header.php";
                 <div class="card-body">
                     <h5 class="card-title">Relatórios</h5>
                     <p class="card-text">Relatórios de Pedidos.</p>
-                    <a href="../relatorio/pedidos.php" class="btn btn-primary">Acessar</a>
+                    <a href="../relatorios/relatorioPedidosAbertos.php" class="btn btn-primary">Acessar</a>
                 </div>
             </div>
         </div>

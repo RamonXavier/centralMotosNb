@@ -37,6 +37,11 @@ $listagem = require_once "../../Controller/PedidoController.php";
                     <th> </th>
                     <th> </th>
                     <?php } ?>
+                    <?php if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) { ?>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <?php } ?>
 
                 </tr>
             </thead>
@@ -73,6 +78,16 @@ $listagem = require_once "../../Controller/PedidoController.php";
                     <td><a href="editar.php?formGet=buscarPorId&id=<?= $value['id'] ?>"
                             class="btn btn-primary">Editar</a></td>
 
+                    <?php } ?>
+
+                    <?php
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) { ?>
+                    <td><a href="../../Controller/PedidoController.php?formGet=pegarPedido&id=<?= $value['id'] ?>"
+                            class="btn btn-warning">Pegar Pedido </a></td>
+                    <td><a href="visualizarPedido.php?formGet=buscarPorId&id=<?= $value['id'] ?>"
+                            class="btn btn-secondary"> <i class="far fa-eye"></i>Analisar Pedido</a></td>
+                    <td><a href="../../Controller/PedidoController.php?formGet=concluir&id=<?= $value['id'] ?>"
+                            class="btn btn-success"></i>Concluir Pedido</a></td>
                     <?php } ?>
                 </tr>
                 <?php  } ?>

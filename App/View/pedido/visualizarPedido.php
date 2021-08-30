@@ -1,15 +1,12 @@
 <?php
-$_POST['perfis'] = true;
-$_POST['permissao'][] = [2, 3, 4];
-require "../../Controller/LoginController.php";
-$_POST = null;
-
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
+
+
 $id = $_GET['id'];
 $_GET['formGet'] = 'buscarPorId';
-$pedido = require_once "../../Controller/PedidoController.php";
+$pedido = require "../../Controller/PedidoController.php";
 
 $_GET['formGet'] = "buscarStatus";
 $listaStatus = require "../../Controller/PedidoController.php";
@@ -26,42 +23,42 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
 <div class="container">
     <div class="col-md-12" id="div_form">
-        <form action="../../Controller/PedidoController.php" method="POST">
+        <form action="../../Controller/PedidoController.php" method="GET">
             <fieldset>
-                <legend>Editar Pedido -
+                <legend>Detalhes Pedido -
                     <?php echo $pedido['id'] ?>
                 </legend>
                 <div class="col-12 row">
 
                     <div class="form-group col-6">
                         <label for="dt_criacao">Data Criação</label>
-                        <input type="date" name="dt_criacao" id="dt_criacao"
+                        <input type="date"
                             value="<?= $pedido['dt_criacao'] == '0000-00-00 00:00:00' ? ' ' :  date('Y-m-d', strtotime($pedido['dt_criacao'])) ?>"
-                            class="form-control" placeholder="15.00" readonly></input>
+                            class="form-control" placeholder="15.00" disabled></input>
                         <small id="DepHelp" class="form-text text-muted">Data de criação do pedido.</small>
                     </div>
 
                     <div class="form-group col-6">
                         <label for="dt_prazo">Data de Prazo </label>
-                        <input type="date" name="dt_prazo" id="dt_prazo"
+                        <input type="date"
                             value="<?= $pedido['dt_prazo'] == '0000-00-00 00:00:00' ? ' ' :  date('Y-m-d', strtotime($pedido['dt_prazo'])) ?>"
-                            class="form-control" placeholder="15.00"></input>
+                            class="form-control" placeholder="15.00" disabled></input>
                         <small id="DepHelp" class="form-text text-muted">Data máxima para realizar pedido
                             bairro.</small>
                     </div>
 
                     <div class="form-group col-6">
                         <label for="dt_conclusao">Data de Conclusão </label>
-                        <input type="date" name="dt_conclusao" id="dt_conclusao"
+                        <input type="date"
                             value="<?= $pedido['dt_conclusao'] == '0000-00-00 00:00:00' ? ' ' :  date('Y-m-d', strtotime($pedido['dt_conclusao'])) ?>"
-                            class="form-control" placeholder="15.00"></input>
+                            class="form-control" placeholder="15.00" disabled></input>
                         <small id="DepHelp" class="form-text text-muted">Data que foi concluída a entrega
                             bairro.</small>
                     </div>
 
                     <div class="form-group col-6">
                         <label for="motoboy">Entregador</label>
-                        <select name="motoboy" id="motoboy" class="form-control">
+                        <select class="form-control" disabled>
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaMotoboy as $key => $value) {
@@ -78,7 +75,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-6">
                         <label for="status">Status da Entrega</label>
-                        <select name="status" id="status" class="form-control">
+                        <select disabled class="form-control">
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaStatus as $key => $value) {
@@ -96,7 +93,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-6">
                         <label for="bairro_origem">Bairro de origem</label>
-                        <select name="bairro_origem" id="bairro_origem" class="form-control">
+                        <select disabled class="form-control">
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaBairro as $key => $value) {
@@ -115,7 +112,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-12">
                         <label for="bairro_destino">Bairro de destino</label>
-                        <select name="bairro_destino" id="bairro_destino" class="form-control">
+                        <select disabled class="form-control">
                             <option value="">Selecione...</option>
                             <?php
                             foreach ($listaBairro as $key => $value) {
@@ -135,16 +132,15 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
 
                     <div class="form-group col-12">
                         <label for="descricao">Descrição Pedido</label>
-                        <textarea rows="4" class="form-control" id="descricao" name="descricao"
-                            aria-describedby="DepHelp"
+                        <textarea rows="4" class="form-control" disabled aria-describedby="DepHelp"
                             placeholder="Ex: Objeto frágil, entregar em mãos a Pedro"><?= $pedido['descricao'] ?></textarea>
-                        <small id="DepHelp" class="form-text text-muted">Informe aqui o endereço, descrição e
+                        <small id="DepHelp" class="form-text text-muted">Aqui o endereço, descrição e
                             orientações do pedido.</small>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-2">
-                        <input type="hidden" value="editar" name="formPost" id="formPost">
+                        <input type="hidden" value="pegarPedido" name="formGet" id="formGet">
                         <input type="hidden" value="<?= $pedido['id'] ?>" name="id" id="id">
 
                         <?php
@@ -155,7 +151,7 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
                             }
                         } ?>
 
-                        <button type="submit" class="btn btn-primary" <?= $bloqueado ?>>Salvar</button>
+                        <button type="submit" class="btn btn-success" <?= $bloqueado ?>>Pegar</button>
 
                     </div>
                     <div class="form-group col-md-3">

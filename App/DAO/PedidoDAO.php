@@ -61,8 +61,8 @@ class PedidoDAO
 
         if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) {
             $sqlBuscar = $sqlBuscar . " WHERE p.id_motoboy =" . $_SESSION['Usuariologin']['id'];
+            $sqlBuscar = $sqlBuscar . " AND p.id_status_pedido NOT IN (3,4)";
             $sqlBuscar = $sqlBuscar . " OR p.id_motoboy IS NULL";
-            $sqlBuscar = $sqlBuscar . " AND sp.id NOT IN (3,4)";
         }
 
         $smtp = Conexao::getConexaoBD()->prepare($sqlBuscar);
@@ -92,11 +92,11 @@ class PedidoDAO
             bD.nome as Bairro_destino,
             bD.valor_entrega as Valor, p.*
             FROM pedido p 
-            JOIN usuario uU on uU.id = p.id_usuario 
-            JOIN usuario uM on uM.id = p.id_motoboy
-            JOIN bairro bO on bO.id = p.id_bairro_origem 
-            JOIN bairro bD on bD.id = p.id_bairro_destino
-            JOIN status_pedido sp on sp.id = p.id_status_pedido
+            LEFT JOIN usuario uU on uU.id = p.id_usuario 
+            LEFT JOIN usuario uM on uM.id = p.id_motoboy
+            INNER JOIN bairro bO on bO.id = p.id_bairro_origem 
+            INNER JOIN bairro bD on bD.id = p.id_bairro_destino
+            INNER JOIN status_pedido sp on sp.id = p.id_status_pedido
         WHERE p.id = ?";
         $smtp = Conexao::getConexaoBD()->prepare($sqlBuscar);
         $smtp->bindValue(1, $pedido->getId());
@@ -154,6 +154,38 @@ class PedidoDAO
         $smtp->bindValue(7, $pedido->getId_bairro_destino());
         $smtp->bindValue(8, $pedido->get_valor_entrega());
         $smtp->bindValue(9, $pedido->getId());
+        $smtp->execute();
+    }
+
+    public function PegarPedido(Pedido $pedido)
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        $sqlEditar =
+            "UPDATE pedido SET 
+        id_status_pedido = 2,
+        id_motoboy = ?
+        WHERE id = ?";
+        $smtp = Conexao::getConexaoBD()->prepare($sqlEditar);
+        $smtp->bindValue(1, $_SESSION['Usuariologin']['id']);
+        $smtp->bindValue(2, $pedido->getId());
+        $smtp->execute();
+    }
+
+    public function Concluir(Pedido $pedido)
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        $sqlEditar =
+            "UPDATE pedido SET 
+        id_status_pedido = 3,
+        id_motoboy = ?
+        WHERE id = ?";
+        $smtp = Conexao::getConexaoBD()->prepare($sqlEditar);
+        $smtp->bindValue(1, $_SESSION['Usuariologin']['id']);
+        $smtp->bindValue(2, $pedido->getId());
         $smtp->execute();
     }
 }

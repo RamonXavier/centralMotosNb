@@ -1,4 +1,9 @@
 <?php
+$_POST['perfis'] = true;
+$_POST['permissao'][] = [2, 4];
+require "../../Controller/LoginController.php";
+$_POST = null;
+
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
@@ -35,8 +40,13 @@ $Usuario = require_once "../../Controller/UsuarioController.php";
                     <select name="id_tipo_usuario" class="form-control" id="id_tipo_usuario" required>
                         <option value="1" <?= $Usuario['idTipoUsuario'] == 1 ? print_r('selected') : '' ?>>Motoboy
                         </option>
-                        <option value="2" <?= $Usuario['idTipoUsuario'] == '2' ? 'selected' : '' ?>>Administrador
+
+                        <?php
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2) { ?>
+                        <option value="2" <?= $Usuario['idTipoUsuario'] == 2 ? 'selected' : '' ?>>Administrador
                         </option>
+                        <?php } ?>
+
                         <option value="3" <?= $Usuario['idTipoUsuario'] == 3 ? print_r('selected') : '' ?>>Cliente
                         </option>
                         <option value="4" <?= $Usuario['idTipoUsuario'] == 4 ? print_r('selected') : '' ?>>Cliente

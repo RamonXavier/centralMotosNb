@@ -17,6 +17,8 @@ if (
     isset($_POST['formPost']) && $_POST['formPost'] == 'editar' //condição 1 - recebe novos valores do item para editar
     || isset($_POST['formPost']) && $_POST['formPost'] == 'criar' //condição 2 - recebe novos valores do item para salvar novo
     || isset($_GET['formGet']) && $_GET['formGet'] == 'excluir' //condição 3 - excluir por id
+    || isset($_GET['formGet']) && $_GET['formGet'] == 'pegarPedido' //condição 4 - get para mudar status pedido
+    || isset($_GET['formGet']) && $_GET['formGet'] == 'concluir' //condição 5 - get para mudar status pedido
 ) {
     require_once "../../vendor/autoload.php";
 }
@@ -95,5 +97,23 @@ if (isset($_POST['formPost']) == true && $_POST['formPost'] == 'editar') {
 
     $pedidoDao = new \App\DAO\PedidoDAO();
     $pedidoDao->Editar($pedido);
+    header("Location: ../View/pedido/listar.php");
+}
+
+if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'pegarPedido') {
+    $pedido = new \App\Model\Pedido();
+    $pedido->setId($_GET['id']);
+
+    $pedidoDao = new \App\DAO\PedidoDAO();
+    $pedidoDao->PegarPedido($pedido);
+    header("Location: ../View/pedido/listar.php");
+}
+
+if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'concluir') {
+    $pedido = new \App\Model\Pedido();
+    $pedido->setId($_GET['id']);
+
+    $pedidoDao = new \App\DAO\PedidoDAO();
+    $pedidoDao->Concluir($pedido);
     header("Location: ../View/pedido/listar.php");
 }

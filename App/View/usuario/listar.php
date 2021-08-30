@@ -1,14 +1,14 @@
 <?php
+$_POST['perfis'] = true;
+$_POST['permissao'][] = [2, 4];
+require "../../Controller/LoginController.php";
+$_POST = null;
 
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
 $_POST['formPost'] = 'buscar';
 $listagem = require_once "../../Controller/UsuarioController.php";
-
-// echo '<pre>';
-// print_r($listagem);
-// echo '</pre>';
 ?>
 <div class="container">
     <div class="row" style="margin-top: 35px;">

@@ -5,10 +5,6 @@ namespace App\Controller;
 use \App\Model\Pedido;
 use \App\DAO\PedidoDAO;
 
-// echo '<pre>';
-// print_r($_GET);
-// echo '</pre>';
-
 if (
     isset($_GET['formGet']) && $_GET['formGet'] == 'buscarPorId' //condição 1 -  escolhe item para editar
     || isset($_POST['formPost']) && $_POST['formPost'] == 'buscar' //condição 2 - listar items
