@@ -25,9 +25,6 @@
                 <form action="../../Controller/LoginController.php" method="POST">
 
                     <div class="card-text">
-                        <!--
-			<div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div> -->
-                        <!-- to error: add class "has-danger" -->
                         <div class="form-group"></div>
                         <label for="nome">Nome de usuário</label>
                         <input type="text" class="form-control form-control-sm" id="nome" name="nome"
