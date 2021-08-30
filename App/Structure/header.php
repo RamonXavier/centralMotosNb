@@ -44,7 +44,7 @@ echo '</pre>';
                         <div class="dropdown-divider"></div>
 
                         <?php
-                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4 || $_SESSION['Usuariologin']['idTipoUsuario'] == 3) { ?>
                         <a class="dropdown-item" href="../../View/relatorios/relatorioPedidosAbertos.php">
                             <i class="fas fa-clipboard"></i>
                             Relatório de
@@ -90,11 +90,5 @@ echo '</pre>';
                     </div>
                 </li>
             </ul>
-            <!-- <form class="form-inline my-4 my-lg-0" action="relatorioEmpregadoFiltro.php" method="GET">
-                <input class="form-control mr-sm-4" type="text" placeholder="Busca rápida de pedido" name="buscaEmp">
-                <input type="hidden" name="formGet" value="listarFiltro">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button><br>
-                <span style="font-size: 7px; margin-left: 5px;">Atenção, texto Case Sensitive</span>
-            </form> -->
         </div>
     </nav>
