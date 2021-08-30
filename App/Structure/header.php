@@ -82,9 +82,6 @@ echo '</pre>';
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">Configurações</a>
                     <div class="dropdown-menu">
-                        <!-- <a class="dropdown-item" href="#one" disabled> <i class="fas fa-user"></i> Perfil</a>
-                        <a class="dropdown-item" href="#two" disabled><i class="fas fa-phone-square"></i> Chamado</a> -->
-                        <!-- <div role="separator" class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="../../Controller/LoginController.php?logout=true"><i
                                 class="fas fa-sign-out-alt"></i> Sair</a>
                     </div>
