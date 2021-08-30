@@ -1,6 +1,9 @@
 <?php
 $_GET['verificar'] = true;
 require "../../Controller/LoginController.php";
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
 ?>
 
 <body>
@@ -14,31 +17,68 @@ require "../../Controller/LoginController.php";
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto row">
                 <li class="nav-item dropdown">
+
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">Listagens</a>
+
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="../../View/bairro/listar.php">Bairros</a>
+                        <a class="dropdown-item" href="../../View/bairro/listar.php">
+                            <i class="fa fa-city"></i>
+                            Bairros</a>
+
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/usuario/listar.php">Usuários</a>
+
+
+                        <?php
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
+                        <a class="dropdown-item" href="../../View/usuario/listar.php">
+                            <i class="fas fa-users"></i>
+                            Usuários</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/pedido/listar.php">Pedidos</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/relatorios/relatorioPedidosAbertos.php">Relatório de
+                        <?php } ?>
+
+                        <a class="dropdown-item" href="../../View/pedido/listar.php">
+                            <i class="fas fa-receipt"></i>
                             Pedidos</a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <?php
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
+                        <a class="dropdown-item" href="../../View/relatorios/relatorioPedidosAbertos.php">
+                            <i class="fas fa-clipboard"></i>
+                            Relatório de
+                            Pedidos</a>
+                        <?php } ?>
                     </div>
                 </li>
+                <?php
+                if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">Cadastros</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="../../View/bairro/criar.php">Bairros</a>
+
+                        <a class="dropdown-item" href="../../View/bairro/criar.php">
+                            <i class="fa fa-city"></i>
+                            Bairros
+                        </a>
+
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/usuario/criar.php">Usuários</a>
+
+                        <a class="dropdown-item" href="../../View/usuario/criar.php">
+                            <i class="fas fa-users"></i>
+                            Usuários</a>
+
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../../View/pedido/editar.php">Pedidos</a>
+
+                        <a class="dropdown-item" href="../../View/pedido/editar.php">
+                            <i class="fas fa-receipt"></i>
+                            Pedidos</a>
                     </div>
                 </li>
-                <li class="nav-item dropdown d-flex flex-row-reverse">
+                <?php } ?>
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                         aria-haspopup="true" aria-expanded="false">Configurações</a>
                     <div class="dropdown-menu">
