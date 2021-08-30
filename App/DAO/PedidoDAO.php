@@ -61,6 +61,8 @@ class PedidoDAO
 
         if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) {
             $sqlBuscar = $sqlBuscar . " WHERE p.id_motoboy =" . $_SESSION['Usuariologin']['id'];
+            $sqlBuscar = $sqlBuscar . " OR p.id_motoboy IS NULL";
+            $sqlBuscar = $sqlBuscar . " AND sp.id NOT IN (3,4)";
         }
 
         $smtp = Conexao::getConexaoBD()->prepare($sqlBuscar);
