@@ -26,8 +26,13 @@ $listagem = require_once "../../Controller/PedidoController.php";
                     <th style="width: 160px;">Bairro origem</th>
                     <th style="width: 160px;">Bairro destino</th>
                     <th style="width: 130px;">Valor</th>
+
+                    <?php
+                    if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) { ?>
                     <th> </th>
                     <th> </th>
+                    <?php } ?>
+
                 </tr>
             </thead>
             <tbody>
@@ -52,10 +57,18 @@ $listagem = require_once "../../Controller/PedidoController.php";
                     <td><?= $value['Bairro_origem'] ?></td>
                     <td><?= $value['Bairro_destino'] ?></td>
                     <td><?= $value['Valor'] ?></td>
+
+                    <?php
+                        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2 || $_SESSION['Usuariologin']['idTipoUsuario'] == 4) {
+                            if ($_SESSION['Usuariologin']['idTipoUsuario'] == 2) { ?>
                     <td><a href="../../Controller/PedidoController.php?formGet=excluir&id=<?= $value['id'] ?>"
                             class="btn btn-warning">Excluir</a></td>
+                    <?php } ?>
+
                     <td><a href="editar.php?formGet=buscarPorId&id=<?= $value['id'] ?>"
                             class="btn btn-primary">Editar</a></td>
+
+                    <?php } ?>
                 </tr>
                 <?php  } ?>
             </tbody>

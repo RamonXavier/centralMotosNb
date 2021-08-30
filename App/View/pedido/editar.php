@@ -1,4 +1,9 @@
 <?php
+$_POST['perfis'] = true;
+$_POST['permissao'][] = [2, 3, 4];
+require "../../Controller/LoginController.php";
+$_POST = null;
+
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
@@ -141,7 +146,17 @@ $listaMotoboy = require "../../Controller/UsuarioController.php";
                     <div class="form-group col-md-2">
                         <input type="hidden" value="editar" name="formPost" id="formPost">
                         <input type="hidden" value="<?= $pedido['id'] ?>" name="id" id="id">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+
+                        <?php
+                        $bloqueado = '';
+                        if ($pedido['id_status_pedido'] == 3 ||  $pedido['id_status_pedido'] == 4) {
+                            if ($_SESSION['Usuariologin']['idTipoUsuario'] != 2) {
+                                $bloqueado = 'disabled';
+                            }
+                        } ?>
+
+                        <button type="submit" class="btn btn-primary" <?= $bloqueado ?>>Salvar</button>
+
                     </div>
                     <div class="form-group col-md-3">
                         <a href="listar.php" class="btn btn-secondary">Voltar</a>

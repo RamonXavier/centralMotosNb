@@ -1,4 +1,9 @@
 <?php
+$_POST['perfis'] = true;
+$_POST['permissao'][] = [2, 3, 4];
+require "../../Controller/LoginController.php";
+$_POST = null;
+
 require "../../Structure/importsPagesStyle.php";
 require "../../Structure/header.php";
 
