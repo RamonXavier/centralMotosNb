@@ -6,12 +6,11 @@ require "../../Structure/header.php";
 ?>
 <link rel="stylesheet" href="inicio.css">
 <br>
+<div class="d-flex justify-content-center div_logo">
+    <img src="../../img/logoW.png" class="imagem_logo" alt="" srcset="">
+</div>
 <div class="container col-12">
-    <h1>Central Motos NB</h1>
 
-    <p>
-        Gestão de entregas rápidas Central Motos NB
-    </p>
 
     <div class="row">
         <div class="col-12 col-md-3 col-lg-3 col-xl-3 card_item">

@@ -33,3 +33,13 @@
 .card_item:hover {
     background-color: black;
 }
+
+.div_logo {
+    height: 140px;
+}
+
+@media only screen and (max-width: 500px) {
+    .div_logo {
+        height: 107px;
+    }
+}

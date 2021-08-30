@@ -14,8 +14,8 @@
 <body>
     <div class="global-container">
         <div class="card login-form">
+            <div class="card-header card_header_person"></div>
             <div class="card-body">
-                <h3 class="card-title text-center">CENTRAL MOTOS NB</h3>
                 <?php
                 if (isset($_GET['error'])) { ?>
                 <div class="form-group alert alert-danger" role="alert">
