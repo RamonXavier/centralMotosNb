@@ -7,6 +7,7 @@ use \App\DAO\UsuarioDao;
 
 if (
     isset($_GET['formGet']) && $_GET['formGet'] == 'buscarPorId' //condição 1 -  escolhe item para editar
+    || isset($_GET['formGetAux']) && $_GET['formGetAux'] == 'buscarPorId' //condição 1 -  escolhe item para editar
     || isset($_GET['formGet']) && $_GET['formGet'] == 'buscarPorTipo' //condição 1 -  escolhe item para editar
     || isset($_POST['formPost']) && $_POST['formPost'] == 'buscar' //condição 2 - listar items
 ) {
@@ -51,7 +52,7 @@ if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'excluir') {
     header("Location: ../View/usuario/listar.php");
 }
 
-if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'buscarPorId') {
+if (isset($_GET['formGet']) == true && $_GET['formGet'] == 'buscarPorId' || isset($_GET['formGetAux']) == true && $_GET['formGetAux'] == 'buscarPorId') {
     $usuario = new \App\Model\Usuario();
     $usuario->setId($_GET['id']);
 

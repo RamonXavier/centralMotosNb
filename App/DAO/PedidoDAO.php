@@ -25,13 +25,12 @@ class PedidoDAO
         VALUES 
         (?,now(),?,?,?,2,?,?,?,?)";
 
-
         $smtp = Conexao::getConexaoBD()->prepare($sqlCriar);
         $smtp->bindValue(1, $pedido->getDescricao());
         $smtp->bindValue(2, $pedido->getDt_prazo());
         $smtp->bindValue(3, $pedido->getDt_conclusao());
         $smtp->bindValue(4, $pedido->getId_status_pedido());
-        $smtp->bindValue(5, $pedido->getId_motoboy());
+        $smtp->bindValue(5, $pedido->getId_motoboy() == null ? null : $pedido->getId_motoboy());
         $smtp->bindValue(6, $pedido->getId_bairro_origem());
         $smtp->bindValue(7, $pedido->getId_bairro_destino());
         $smtp->bindValue(8, $pedido->get_valor_entrega());
@@ -54,11 +53,16 @@ class PedidoDAO
             bD.nome as Bairro_destino,
             p.valor_entrega as Valor, p.*
             FROM pedido p 
-            JOIN usuario uU on uU.id = p.id_usuario 
-            JOIN usuario uM on uM.id = p.id_motoboy
-            JOIN bairro bO on bO.id = p.id_bairro_origem 
-            JOIN bairro bD on bD.id = p.id_bairro_destino
-            JOIN status_pedido sp on sp.id = p.id_status_pedido";
+            LEFT JOIN usuario uU on uU.id = p.id_usuario 
+            LEFT JOIN usuario uM on uM.id = p.id_motoboy
+            INNER JOIN bairro bO on bO.id = p.id_bairro_origem 
+            INNER JOIN bairro bD on bD.id = p.id_bairro_destino
+            INNER JOIN status_pedido sp on sp.id = p.id_status_pedido";
+
+        if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) {
+            $sqlBuscar = $sqlBuscar . " WHERE p.id_motoboy =" . $_SESSION['Usuariologin']['id'];
+        }
+
         $smtp = Conexao::getConexaoBD()->prepare($sqlBuscar);
         $smtp->execute();
         $numRows = $smtp->rowCount();

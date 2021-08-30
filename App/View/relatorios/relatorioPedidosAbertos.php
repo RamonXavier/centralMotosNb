@@ -7,10 +7,15 @@ $_POST['formPost'] = 'buscarStatus';
 $listaStatus = require "../../Controller/RelatoriosController.php";
 $listaPedidos = [];
 
-if (!isset($_GET['formGet'])) {
-    $_POST['formPost'] = 'buscar';
-    $listaPedidos = require "../../Controller/RelatoriosController.php";
-} else {
+$colunaInput = 6;
+if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) {
+    $_GET['id'] = $_SESSION['Usuariologin']['id'];
+    $_GET['formGetAux'] = 'buscarPorId';
+    $usuario = require "../../Controller/UsuarioController.php";
+    $colunaInput = 3;
+}
+
+if (isset($_GET['formGet'])) {
     $_POST['formPost'] = 'formFilter_relatorioPedido';
     $listaPedidos = require "../../Controller/RelatoriosController.php";
 }
@@ -33,7 +38,7 @@ if (!isset($_GET['formGet'])) {
                     <h5 class="card-title">Filtro</h5>
                     <form action="#" method="GET">
                         <div class="row col-12">
-                            <div class="form-group col-6">
+                            <div class="form-group col-<?= $colunaInput ?>">
                                 <label for="statusPedido">Status dos pedidos</label>
                                 <select class="form-control" id="statusPedido" name="statusPedido" required>
                                     <option value="">SELECIONE...</option>
@@ -42,6 +47,14 @@ if (!isset($_GET['formGet'])) {
                                     <?php } ?>
                                 </select>
                             </div>
+                            <?php if ($_SESSION['Usuariologin']['idTipoUsuario'] == 1) { ?>
+                            <div class="form-group col-<?= $colunaInput ?>">
+                                <label for="id_entregador">Entregador</label>
+                                <select class="form-control" name="id_entregador" id="id_entregador" disabled required>
+                                    <option value="<?= $usuario['id'] ?>" selected><?= $usuario['nome'] ?></option>
+                                </select>
+                            </div>
+                            <?php } ?>
                             <div class="form-group col-3">
                                 <label for="dataInicial">Período Inicial</label>
                                 <input class="form-control" type="date" name="dataInicial" id="dataInicial" required>
@@ -62,6 +75,7 @@ if (!isset($_GET['formGet'])) {
             </div>
         </div>
     </div>
+    <?php if (isset($_GET['formGet'])) { ?>
     <div class="div_center">
         <div class="mb-1 text-right">
             <button id="exporttable" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="">
@@ -85,15 +99,15 @@ if (!isset($_GET['formGet'])) {
             </thead>
             <tbody>
                 <?php
-                $valorTotal = 00.00;
-                if (is_array($listaPedidos)) {
-                    foreach ($listaPedidos as $key => $value) {
-                        $valorTotal += (float)filter_var($value['Valor'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-                        $corDestaque = "green";
-                        if ($value['dt_prazo'] > $value['dt_conclusao'] || !$value['dt_conclusao']) {
-                            $corDestaque = "red";
-                        }
-                ?>
+                    $valorTotal = 00.00;
+                    if (is_array($listaPedidos)) {
+                        foreach ($listaPedidos as $key => $value) {
+                            $valorTotal += (float)filter_var($value['Valor'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+                            $corDestaque = "green";
+                            if ($value['dt_prazo'] > $value['dt_conclusao'] || !$value['dt_conclusao']) {
+                                $corDestaque = "red";
+                            }
+                    ?>
                 <tr style="color: <?= $corDestaque ?>">
                     <td><?= $value['id'] ?></td>
                     <td><?= $value['dt_criacao'] == '0000-00-00 00:00:00' ? ' ' : date('d-m-Y', strtotime($value['dt_criacao'])) ?>
@@ -110,10 +124,11 @@ if (!isset($_GET['formGet'])) {
                     <td><?= $value['Valor'] ?></td>
                 </tr>
                 <?php  }
-                } ?>
+                    } ?>
             </tbody>
         </table>
     </div>
+    <?php } ?>
     <?php
     if (isset($_GET['formGet'])) { ?>
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
