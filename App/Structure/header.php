@@ -1,4 +1,5 @@
 <?php
+session_start();
 $_GET['verificar'] = true;
 require "../../Controller/LoginController.php";
 ?>

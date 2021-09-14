@@ -1,8 +1,9 @@
 <?php
+session_start();
 $_GET['verificar'] = true;
+require "../../Structure/header.php";
 require "../../Controller/LoginController.php";
 require "../../Structure/importsPagesStyle.php";
-require "../../Structure/header.php";
 ?>
 <link rel="stylesheet" href="inicio.css">
 <br>
